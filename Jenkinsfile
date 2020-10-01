@@ -38,8 +38,10 @@ pipeline {
     
     stage('Compile & Unit Tests') {
       steps{
+        echo "------------>Clean<------------"
+        //sh 'gradle --b ./build.gradle clean'
+        sh 'gradle --b ./build.gradle clean compileJava'
         echo "------------>Unit Tests<------------"
-        sh 'gradle --b ./tiendafiguras/build.gradle clean'
 		sh 'gradle --b ./build.gradle test'
       }
     }
