@@ -38,5 +38,10 @@ public class FiguraDTO {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "id: " + id + " nombre: " + nombre + " marca: " + marca + " fechaLanzamiento: " 
+				+ fechaLanzamiento + " fechaLlegada: " + fechaLlegada + " unidadesPreventa: " + unidadesPreventa;
+	}
 
 }
