@@ -33,16 +33,35 @@ pipeline {
 				url:'https://github.com/claudiamgf599/Ceiba-TiendaFiguras'
 			]]
 		])	
+		sh 'chmod +x ./gradlew'
+        sh './gradlew --b ./build.gradle clean'
       }
+    }
+    
+    stage('CompileW') {
+		steps{
+			echo "------------>CompileW<------------"
+			sh './gradlew build'
+		}
+	}
+	
+    stage('Compile') {
+        steps{
+            echo "------------>Compile<------------"
+        	sh './gradlew --b ./build.gradle compileJava'
+        }
     }
     
     stage('Compile & Unit Tests') {
       steps{
+        echo "------------>Unit Tests<------------"
+        sh './gradlew --b ./build.gradle test'
+        /*
         echo "------------>Clean<------------"
-        //sh 'gradle --b ./build.gradle clean'
         sh 'gradle --b ./build.gradle clean compileJava'
         echo "------------>Unit Tests<------------"
 		sh 'gradle --b ./build.gradle test'
+		*/
       }
     }
 
@@ -59,7 +78,7 @@ pipeline {
       steps {
         echo "------------>Build<------------"
         //Construir sin tarea test que se ejecutó previamente
-		sh 'gradle --b ./build.gradle build -x test'
+		//sh 'gradle --b ./build.gradle build -x test'
       }
     }  
   }
