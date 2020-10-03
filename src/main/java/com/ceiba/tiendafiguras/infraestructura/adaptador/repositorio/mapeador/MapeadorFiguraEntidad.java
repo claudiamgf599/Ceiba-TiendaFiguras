@@ -3,8 +3,12 @@ package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.mapeador;
 import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
 import com.ceiba.tiendafiguras.dominio.modelo.entidad.FiguraEntity;
 
-public class MapeadorFiguraEntidad {
+public final class MapeadorFiguraEntidad {
 
+	private MapeadorFiguraEntidad() {
+		
+	}
+	
 	/**
 	 * Convierte un FiguraEntity a un FiguraDTO
 	 * @param figuraEntity

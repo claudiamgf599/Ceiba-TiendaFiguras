@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(name = "Preorden")
 public class PreordenEntity {
 	
@@ -31,52 +36,12 @@ public class PreordenEntity {
 	@Column(nullable = false)
 	private Date fechaPreorden;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public FiguraEntity getFigura() {
-		return figura;
-	}
-
-	public void setFigura(FiguraEntity figura) {
-		this.figura = figura;
-	}
-
-	public ClienteEntity getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteEntity cliente) {
-		this.cliente = cliente;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-	public Date getFechaPreorden() {
-		return fechaPreorden;
-	}
-
-	public void setFechaPreorden(Date fechaPreorden) {
-		this.fechaPreorden = fechaPreorden;
-	}
-
 	public PreordenEntity(Long id, FiguraEntity figura, ClienteEntity cliente, double precio, Date fechaPreorden) {
 		this.id = id;
 		this.figura = figura;
 		this.cliente = cliente;
 		this.precio = precio;
-		this.fechaPreorden = fechaPreorden;
+		this.fechaPreorden = (Date) fechaPreorden.clone();
 	}
 
 	public PreordenEntity() {

@@ -30,9 +30,7 @@ public class RepositorioFiguraPersistente implements RepositorioFigura, Reposito
 	public List<FiguraEntity> obtenerFigurasEntityDisponiblesPreorden() {
 
 		Query query =  entityManager.createNamedQuery(FIGURA_FIN_PREORDENABLES);
-		List<FiguraEntity> figuras = query.getResultList();
-		System.out.println(figuras.size());
-		return figuras;
+		return query.getResultList();
 	}
 
 	@Override
