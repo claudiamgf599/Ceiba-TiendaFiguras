@@ -8,7 +8,7 @@ import com.ceiba.tiendafiguras.dominio.modelo.entidad.FiguraEntity;
 public class FiguraEntityTestDataBuilder {
 	
 	private static final String ID = "G-14";
-	private static final String NOMBRE = "Goku Transformación Gold";
+	private static final String NOMBRE = "Goku Transformacion Gold";
 	private static final String MARCA = "Bandai";
 	private static final Date FECHA_LANZAMIENTO = new GregorianCalendar(2020, 12, 1).getTime();
 	private static final Date FECHA_LLEGADA = new GregorianCalendar(2020, 12, 20).getTime();

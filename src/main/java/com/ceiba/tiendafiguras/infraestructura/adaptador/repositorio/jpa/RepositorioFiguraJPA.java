@@ -17,7 +17,7 @@ public interface RepositorioFiguraJPA {
 	List<FiguraEntity> obtenerFigurasEntityDisponiblesPreorden(Date fechaLanzamiento, Date fechaLlegada);
 	
 	/**
-	 * Obtiene una FiguraEntity dado su código único
+	 * Obtiene una FiguraEntity dado su codigo unico
 	 * @param id
 	 * @return
 	 */
@@ -25,7 +25,7 @@ public interface RepositorioFiguraJPA {
 	
 	
 	/**
-	 * Retorna la figura identificada con el id, si está disponible para ser preordenada, null en caso contrario
+	 * Retorna la figura identificada con el id, si esta disponible para ser preordenada, null en caso contrario
 	 * @return
 	 */
 	FiguraEntity figuraEntityDisponiblePreorden(String id);

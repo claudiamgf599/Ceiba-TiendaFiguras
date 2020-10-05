@@ -6,7 +6,7 @@ public class ClienteEntityTestDataBuilder {
 
 	private static final String ID = "C43259599";
 	private static final String NOMBRES = "Claudia Maria";
-	private static final String APELLIDOS = "Gómez Flórez";
+	private static final String APELLIDOS = "Gomez Florez";
 	
 	private String identificacion;
 	private String nombres;

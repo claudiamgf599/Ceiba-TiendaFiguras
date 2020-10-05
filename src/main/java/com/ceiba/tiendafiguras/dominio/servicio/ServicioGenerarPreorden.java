@@ -54,7 +54,7 @@ public class ServicioGenerarPreorden {
 	}
 	
 	/**
-	 * Indica si la figura identificada con el idFigura está disponible en stock para ser preordenada
+	 * Indica si la figura identificada con el idFigura esta disponible en stock para ser preordenada
 	 * @param idFigura
 	 * @return
 	 */

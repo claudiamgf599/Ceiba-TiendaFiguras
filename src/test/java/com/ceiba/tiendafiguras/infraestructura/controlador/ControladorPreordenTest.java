@@ -44,7 +44,7 @@ public class ControladorPreordenTest {
 	public void generarPreordenTest() throws Exception {
 		
 		ClienteDTO clienteDTO = new ClienteDTOTestDataBuilder()
-				.conIdentificacion("C43259599").conNombres("Claudia Maria").conApellidos("Gómez Flórez")
+				.conIdentificacion("C43259599").conNombres("Claudia Maria").conApellidos("Gomez Florez")
 				.build();
 		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder() 
 				.conId("V-3").conNombre("Vegeta").conMarca("Bandai").conFechaLanzamiento(new GregorianCalendar(2020, 10, 15).getTime())
