@@ -9,10 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class TiendafigurasApplicationTests {
 
-	/*
 	@Test
 	public void contextLoads() {
 	}
-	*/
 
 }
