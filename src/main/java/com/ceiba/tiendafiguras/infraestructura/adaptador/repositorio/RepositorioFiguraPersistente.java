@@ -1,11 +1,11 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -57,17 +57,20 @@ public class RepositorioFiguraPersistente implements RepositorioFigura, Reposito
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public FiguraEntity figuraEntityDisponiblePreorden(String id) {
 		Query query =  entityManager.createNamedQuery(FIGURA_DISPONIBLE_PREORDEN);
 		Date fechaBase = new Date();
+		FiguraEntity figuraRetorno = null; 
 		query.setParameter(FECHA_BASE_LANZAMIENTO, fechaBase);
 		query.setParameter(FECHA_BASE_LLEGADA, fechaBase);
 		query.setParameter(ID, id);
-		try {
-			return (FiguraEntity)query.getSingleResult();
-		}catch (NoResultException e) {
-			return null; 
+		
+		ArrayList<FiguraEntity> figurasEntity = (ArrayList<FiguraEntity>)query.getResultList();
+		if(!figurasEntity.isEmpty()){
+			figuraRetorno = figurasEntity.get(0);
 		}
+		return figuraRetorno;
 	}
 
 	@Override
