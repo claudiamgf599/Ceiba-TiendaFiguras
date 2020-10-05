@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
 import com.ceiba.tiendafiguras.dominio.servicio.ServicioObtenerFigura;
 
-@Service
+@Component
 public class ManejadorConsultarFiguras {
 
 	private final ServicioObtenerFigura servicioObtenerFigura;

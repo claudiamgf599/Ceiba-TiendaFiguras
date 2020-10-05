@@ -10,12 +10,12 @@ import com.ceiba.tiendafiguras.aplicacion.consulta.ManejadorConsultarFiguras;
 import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
 
 @RestController
-@RequestMapping("/figuras")
-public class ConsultaControladorProductos {
+@RequestMapping("/api/figuras")
+public class ControladorConsultaFiguras {
 
 	private final ManejadorConsultarFiguras manejadorConsultarFiguras;
 	
-	public ConsultaControladorProductos(ManejadorConsultarFiguras manejadorConsultarFiguras) {
+	public ControladorConsultaFiguras(ManejadorConsultarFiguras manejadorConsultarFiguras) {
 		this.manejadorConsultarFiguras = manejadorConsultarFiguras; 
 	}
 	

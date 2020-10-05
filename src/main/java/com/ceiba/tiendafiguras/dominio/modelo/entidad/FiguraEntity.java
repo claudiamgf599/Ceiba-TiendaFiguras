@@ -15,8 +15,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Figura")
-//@NamedQuery(name = "Figura.findPreordenables", query = "SELECT figura FROM Figura figura WHERE figura.fechaLanzamiento > sysdate AND figura.fechaLlegada > sysdate")
-@NamedQuery(name = "Figura.findPreordenables", query = "SELECT figura FROM Figura figura ")
+@NamedQuery(name = "Figura.findPreordenables", 
+	query = "SELECT figura FROM Figura figura WHERE figura.fechaLanzamiento > :fechaLanzamiento "
+			+ "AND figura.fechaLlegada > :fechaLlegada "
+			+ "AND figura.unidadesPreventa > (SELECT count(1) FROM Preorden preorden WHERE preorden.figura.id = figura.id )")
+@NamedQuery(name = "Figura.findById", query = "SELECT figura FROM Figura figura WHERE figura.id = :id")
+@NamedQuery(name = "Figura.disponiblePreorden", 
+query = "SELECT figura FROM Figura figura WHERE figura.id = :id AND "
+		+ "figura.fechaLanzamiento > :fechaLanzamiento "
+		+ "AND figura.fechaLlegada > :fechaLlegada "
+		+ "AND figura.unidadesPreventa > (SELECT count(1) FROM Preorden preorden WHERE preorden.figura.id = figura.id )")
 public class FiguraEntity {
 
 	@Id

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Preorden")
+@NamedQuery(name = "Preorden.findByCliente", query = "SELECT preorden FROM Preorden preorden WHERE preorden.cliente.identificacion = :idCliente "
+		+ "ORDER BY fechaPreorden DESC")
 public class PreordenEntity {
 	
 	@Id

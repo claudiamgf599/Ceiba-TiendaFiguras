@@ -1,9 +1,11 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -17,26 +19,60 @@ import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.mapeador.Ma
 @Repository
 public class RepositorioFiguraPersistente implements RepositorioFigura, RepositorioFiguraJPA {
 
-	private static final String FIGURA_FIN_PREORDENABLES = "Figura.findPreordenables";
+	private static final String FECHA_BASE_LANZAMIENTO = "fechaLanzamiento";
+	private static final String FECHA_BASE_LLEGADA = "fechaLlegada";
+	private static final String FIGURA_FIND_PREORDENABLES = "Figura.findPreordenables";
+	private static final String ID = "id";
+	private static final String FIGURA_FIND_BY_ID = "Figura.findById";
+	private static final String FIGURA_DISPONIBLE_PREORDEN = "Figura.disponiblePreorden";
 	
 	private EntityManager entityManager;
 	
 	public RepositorioFiguraPersistente(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<FiguraEntity> obtenerFigurasEntityDisponiblesPreorden() {
 
-		Query query =  entityManager.createNamedQuery(FIGURA_FIN_PREORDENABLES);
+	@Override
+	public List<FiguraDTO> obtenerFigurasDisponiblesPreorden() {
+		Date fechaBase = new Date(); 
+		List<FiguraEntity> figurasEntity = obtenerFigurasEntityDisponiblesPreorden(fechaBase, fechaBase);
+		return figurasEntity.stream().map(MapeadorFiguraEntidad::mapearAModelo).collect(Collectors.toList());
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<FiguraEntity> obtenerFigurasEntityDisponiblesPreorden(Date fechaLanzamiento, Date fechaLlegada) {
+		Query query =  entityManager.createNamedQuery(FIGURA_FIND_PREORDENABLES);
+		query.setParameter(FECHA_BASE_LANZAMIENTO, fechaLanzamiento);
+		query.setParameter(FECHA_BASE_LLEGADA, fechaLlegada);
 		return query.getResultList();
 	}
 
 	@Override
-	public List<FiguraDTO> obtenerFigurasDisponiblesPreorden() {
-		List<FiguraEntity> figurasEntity = obtenerFigurasEntityDisponiblesPreorden();
-		return figurasEntity.stream().map(MapeadorFiguraEntidad::mapearAModelo).collect(Collectors.toList());
+	public FiguraEntity obtenerFiguraEntityPorId(String id) {
+		Query query = entityManager.createNamedQuery(FIGURA_FIND_BY_ID);
+		query.setParameter(ID, id);
+
+		return (FiguraEntity) query.getSingleResult();
 	}
 
+	@Override
+	public FiguraEntity figuraEntityDisponiblePreorden(String id) {
+		Query query =  entityManager.createNamedQuery(FIGURA_DISPONIBLE_PREORDEN);
+		Date fechaBase = new Date();
+		query.setParameter(FECHA_BASE_LANZAMIENTO, fechaBase);
+		query.setParameter(FECHA_BASE_LLEGADA, fechaBase);
+		query.setParameter(ID, id);
+		try {
+			return (FiguraEntity)query.getSingleResult();
+		}catch (NoResultException e) {
+			return null; 
+		}
+	}
+
+	@Override
+	public FiguraDTO obtenerFiguraDisponiblePreorden(String id) {
+		FiguraEntity figuraDisponible = figuraEntityDisponiblePreorden(id);
+		return MapeadorFiguraEntidad.mapearAModelo(figuraDisponible);
+	}
 }

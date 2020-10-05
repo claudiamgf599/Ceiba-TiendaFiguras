@@ -3,6 +3,7 @@ package com.ceiba.tiendafiguras.dominio.modelo.entidad;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Cliente")
+@NamedQuery(name = "Cliente.findById", query = "SELECT cliente FROM Cliente cliente WHERE cliente.identificacion = :identificacion")
 public class ClienteEntity {
 
 	@Id

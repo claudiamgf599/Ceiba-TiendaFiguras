@@ -23,4 +23,9 @@ public class ClienteDTO {
 
 	}
 	
+	@Override
+	public String toString() {
+		return "identificacion: " + identificacion + " nombres: " + nombres + " apellidos: " + apellidos;
+	}
+	
 }
