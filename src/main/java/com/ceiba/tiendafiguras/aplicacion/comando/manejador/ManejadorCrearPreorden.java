@@ -22,12 +22,7 @@ public class ManejadorCrearPreorden {
 	
 	@Transactional
 	public void ejecutar(ComandoPreorden comandoPreorden) {
-		try {
-			PreordenDTO preordenDTO = fabricaPreorden.crearPreorden(comandoPreorden);
-			servicioGenerarPreorden.ejecutar(preordenDTO);
-		}catch(Exception e) {
-			e.printStackTrace();
-			throw e; 
-		}
+		PreordenDTO preordenDTO = fabricaPreorden.crearPreorden(comandoPreorden);
+		servicioGenerarPreorden.ejecutar(preordenDTO);
 	}
 }

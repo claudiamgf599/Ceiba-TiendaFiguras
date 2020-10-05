@@ -38,21 +38,16 @@ pipeline {
       }
     }
     
-    stage('CompileW') {
-		steps{
-			echo "------------>CompileW<------------"
-			sh './gradlew build'
-		}
-	}
-	
     stage('Compile') {
         steps{
+        	echo "------------>CompileW<------------"
+			sh './gradlew build'
             echo "------------>Compile<------------"
         	sh './gradlew --b ./build.gradle compileJava'
         }
     }
     
-    stage('Compile & Unit Tests') {
+    stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
         sh './gradlew --b ./build.gradle test'

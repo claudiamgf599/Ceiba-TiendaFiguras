@@ -48,7 +48,7 @@ public class ServicioGenerarPreorden {
 		}
 		
 		preorden.setFechaPreorden(new Date());
-		preorden.setPrecioPreorden(100000);  //TODO - calcular el precio
+		preorden.setPrecioPreorden(100000);  //PENDIENTE - calcular el precio
 		
 		repositorioPreorden.generarPreorden(preorden);
 	}
