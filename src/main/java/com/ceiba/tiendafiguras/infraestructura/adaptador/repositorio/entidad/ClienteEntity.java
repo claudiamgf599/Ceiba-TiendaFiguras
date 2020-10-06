@@ -1,4 +1,4 @@
-package com.ceiba.tiendafiguras.dominio.modelo.entidad;
+package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -5,23 +5,22 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 import org.junit.Test;
 
 import com.ceiba.tiendafiguras.dominio.excepcion.ClienteExcepcion;
 import com.ceiba.tiendafiguras.dominio.excepcion.PreordenExcepcion;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Figura;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Preorden;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioCliente;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioFigura;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioPreorden;
 import com.ceiba.tiendafiguras.dominio.servicio.ServicioGenerarPreorden;
-import com.ceiba.tiendafiguras.testdatabuilder.ClienteDTOTestDataBuilder;
-import com.ceiba.tiendafiguras.testdatabuilder.FiguraDTOTestDataBuilder;
-import com.ceiba.tiendafiguras.testdatabuilder.PreordenDTOTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.ClienteTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.FiguraTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.PreordenTestDataBuilder;
 
 public class ServicioGenerarPreordenTest {
 
@@ -50,15 +49,15 @@ public class ServicioGenerarPreordenTest {
 		
 		//arrange
 		String idFigura = "M-2";
-		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder().conId(idFigura)
-				.conFechaLanzamiento(new GregorianCalendar(2020, 11, 1).getTime())
-				.conFechaLlegada(new GregorianCalendar(2020, 12, 1).getTime())
+		Figura figura = new FiguraTestDataBuilder().conId(idFigura)
+				.conFechaLanzamiento(LocalDate.of(2020, 11, 1))
+				.conFechaLlegada(LocalDate.of(2020, 12, 1))
 				.conUnidadesPreventa(5).build();
 		RepositorioPreorden repositorioPreorden = mock(RepositorioPreorden.class);
 		RepositorioFigura repositorioFigura = mock(RepositorioFigura.class);
 		RepositorioCliente repositorioCliente = mock(RepositorioCliente.class);
 		
-		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(figuraDTO);
+		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(figura);
 		
 		ServicioGenerarPreorden servicioGenerarPreorden = new ServicioGenerarPreorden(repositorioPreorden, repositorioFigura, repositorioCliente);
 		
@@ -75,24 +74,24 @@ public class ServicioGenerarPreordenTest {
 		//arrange
 		String idFigura = "M-2";
 		String idCliente = "C2568985";
-		ClienteDTO clienteDTO = new ClienteDTOTestDataBuilder().conIdentificacion(idCliente).build();
-		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder().conId(idFigura)
-				.conFechaLanzamiento(new GregorianCalendar(2020, 11, 1).getTime())
-				.conFechaLlegada(new GregorianCalendar(2020, 12, 1).getTime())
+		Cliente cliente = new ClienteTestDataBuilder().conIdentificacion(idCliente).build();
+		Figura figura = new FiguraTestDataBuilder().conId(idFigura)
+				.conFechaLanzamiento(LocalDate.of(2020, 11, 1))
+				.conFechaLlegada(LocalDate.of(2020, 12, 1))
 				.conUnidadesPreventa(5).build();
-		PreordenDTO preordenDTO = new PreordenDTOTestDataBuilder().conCliente(clienteDTO).conFigura(figuraDTO)
-				.conFechaPreorden(new Date()).conPrecio(250000).conId(10L).build();
+		Preorden preorden = new PreordenTestDataBuilder().conCliente(cliente).conFigura(figura)
+				.conFechaPreorden(LocalDate.now()).conPrecio(250000).conId(10L).build();
 		RepositorioPreorden repositorioPreorden = mock(RepositorioPreorden.class);
 		RepositorioFigura repositorioFigura = mock(RepositorioFigura.class);
 		RepositorioCliente repositorioCliente = mock(RepositorioCliente.class);
 		
 		when(repositorioCliente.obtenerPorId(idCliente)).thenReturn(null);
-		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(figuraDTO);
+		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(figura);
 		
 		ServicioGenerarPreorden servicioGenerarPreorden = new ServicioGenerarPreorden(repositorioPreorden, repositorioFigura, repositorioCliente);
 		
 		//act
-		servicioGenerarPreorden.ejecutar(preordenDTO);
+		servicioGenerarPreorden.ejecutar(preorden);
 	}
 	
 	@Test(expected = PreordenExcepcion.class)
@@ -101,22 +100,22 @@ public class ServicioGenerarPreordenTest {
 		//arrange
 		String idFigura = "G-14";
 		String idCliente = "C8266633";
-		ClienteDTO clienteDTO = new ClienteDTOTestDataBuilder().conIdentificacion(idCliente).build();
-		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder().conId(idFigura)
-				.conFechaLanzamiento(new GregorianCalendar(2020, 11, 1).getTime())
-				.conFechaLlegada(new GregorianCalendar(2020, 12, 1).getTime())
+		Cliente cliente = new ClienteTestDataBuilder().conIdentificacion(idCliente).build();
+		Figura figura = new FiguraTestDataBuilder().conId(idFigura)
+				.conFechaLanzamiento(LocalDate.of(2020, 11, 1))
+				.conFechaLlegada(LocalDate.of(2020, 12, 1))
 				.conUnidadesPreventa(5).build();
-		PreordenDTO preordenDTO = new PreordenDTOTestDataBuilder().conCliente(clienteDTO).conFigura(figuraDTO).build();
+		Preorden preorden = new PreordenTestDataBuilder().conCliente(cliente).conFigura(figura).build();
 		RepositorioPreorden repositorioPreorden = mock(RepositorioPreorden.class);
 		RepositorioFigura repositorioFigura = mock(RepositorioFigura.class);
 		RepositorioCliente repositorioCliente = mock(RepositorioCliente.class);
 		
-		when(repositorioCliente.obtenerPorId(idCliente)).thenReturn(clienteDTO);
+		when(repositorioCliente.obtenerPorId(idCliente)).thenReturn(cliente);
 		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(null);
 		
 		ServicioGenerarPreorden servicioGenerarPreorden = new ServicioGenerarPreorden(repositorioPreorden, repositorioFigura, repositorioCliente);
 		
 		//act
-		servicioGenerarPreorden.ejecutar(preordenDTO);
+		servicioGenerarPreorden.ejecutar(preorden);
 	}
 }

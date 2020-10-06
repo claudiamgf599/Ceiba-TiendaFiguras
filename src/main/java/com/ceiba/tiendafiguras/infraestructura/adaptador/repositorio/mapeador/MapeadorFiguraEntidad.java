@@ -1,7 +1,7 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.mapeador;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.FiguraEntity;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Figura;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.FiguraEntity;
 
 public final class MapeadorFiguraEntidad {
 
@@ -10,13 +10,13 @@ public final class MapeadorFiguraEntidad {
 	}
 	
 	/**
-	 * Convierte un FiguraEntity a un FiguraDTO
+	 * Convierte un FiguraEntity a un Figura
 	 * @param figuraEntity
 	 * @return
 	 */
-	public static FiguraDTO mapearAModelo(FiguraEntity figuraEntity) {
+	public static Figura mapearAModelo(FiguraEntity figuraEntity) {
 		if(figuraEntity != null) {
-			return new FiguraDTO(figuraEntity.getId(), figuraEntity.getNombre(), figuraEntity.getMarca(), 
+			return new Figura(figuraEntity.getId(), figuraEntity.getNombre(), figuraEntity.getMarca(), 
 					figuraEntity.getFechaLanzamiento(), figuraEntity.getFechaLlegada(), figuraEntity.getUnidadesPreventa(), 
 					figuraEntity.getPrecio());
 		}else {
@@ -25,14 +25,14 @@ public final class MapeadorFiguraEntidad {
 	}
 	
 	/**
-	 * Convierte un FiguraDTO a un FiguraEntity
-	 * @param figuraDTO
+	 * Convierte un Figura a un FiguraEntity
+	 * @param figura
 	 * @return
 	 */
-	public static FiguraEntity mapearAEntidad(FiguraDTO figuraDTO) {
-		if(figuraDTO != null) {
-			return new FiguraEntity(figuraDTO.getId(), figuraDTO.getNombre(), figuraDTO.getMarca(), figuraDTO.getFechaLanzamiento(), 
-					figuraDTO.getFechaLlegada(), figuraDTO.getUnidadesPreventa(), figuraDTO.getPrecio());
+	public static FiguraEntity mapearAEntidad(Figura figura) {
+		if(figura != null) {
+			return new FiguraEntity(figura.getId(), figura.getNombre(), figura.getMarca(), figura.getFechaLanzamiento(), 
+					figura.getFechaLlegada(), figura.getUnidadesPreventa(), figura.getPrecio());
 		}else {
 			return null;
 		}

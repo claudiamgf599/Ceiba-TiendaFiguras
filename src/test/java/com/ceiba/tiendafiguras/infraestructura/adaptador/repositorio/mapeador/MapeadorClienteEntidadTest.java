@@ -6,10 +6,10 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.ClienteEntity;
-import com.ceiba.tiendafiguras.testdatabuilder.ClienteDTOTestDataBuilder;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
 import com.ceiba.tiendafiguras.testdatabuilder.ClienteEntityTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.ClienteTestDataBuilder;
 
 public class MapeadorClienteEntidadTest {
 	
@@ -19,19 +19,19 @@ public class MapeadorClienteEntidadTest {
 		ClienteEntity clienteEntity = null;
 		
 		//act
-		ClienteDTO clienteDTO = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
+		Cliente cliente = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
 		
 		//assert
-		assertNull(clienteDTO);
+		assertNull(cliente);
 	}
 	
 	@Test
-	public void dtoEsNullTest() {
+	public void clienteEsNullTest() {
 		//arrange
-		ClienteDTO clienteDTO = null; 
+		Cliente cliente = null; 
 		
 		//act
-		ClienteEntity clienteEntity = MapeadorClienteEntidad.mapearAEntidad(clienteDTO);
+		ClienteEntity clienteEntity = MapeadorClienteEntidad.mapearAEntidad(cliente);
 		
 		//assert
 		assertNull(clienteEntity);
@@ -43,13 +43,13 @@ public class MapeadorClienteEntidadTest {
 		ClienteEntity clienteEntity = new ClienteEntityTestDataBuilder().build();
 		
 		//act
-		ClienteDTO clienteDTO = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
+		Cliente cliente = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
 		
 		//assert
-		assertNotNull(clienteDTO);
-		assertEquals(clienteDTO.getIdentificacion(), clienteEntity.getIdentificacion());
-		assertEquals(clienteDTO.getNombres(), clienteEntity.getNombres());
-		assertEquals(clienteDTO.getApellidos(), clienteEntity.getApellidos());
+		assertNotNull(cliente);
+		assertEquals(cliente.getIdentificacion(), clienteEntity.getIdentificacion());
+		assertEquals(cliente.getNombres(), clienteEntity.getNombres());
+		assertEquals(cliente.getApellidos(), clienteEntity.getApellidos());
 	}
 	
 	@Test
@@ -62,27 +62,27 @@ public class MapeadorClienteEntidadTest {
 				.build();
 		
 		//act
-		ClienteDTO clienteDTO = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
+		Cliente cliente = MapeadorClienteEntidad.mapearAModelo(clienteEntity);
 		
 		//assert
-		assertNotNull(clienteDTO);
-		assertEquals(clienteDTO.getIdentificacion(), clienteEntity.getIdentificacion());
-		assertEquals(clienteDTO.getNombres(), clienteEntity.getNombres());
-		assertEquals(clienteDTO.getApellidos(), clienteEntity.getApellidos());
+		assertNotNull(cliente);
+		assertEquals(cliente.getIdentificacion(), clienteEntity.getIdentificacion());
+		assertEquals(cliente.getNombres(), clienteEntity.getNombres());
+		assertEquals(cliente.getApellidos(), clienteEntity.getApellidos());
 	}
 	
 	@Test
-	public void dtoNoEsNullTest() {
+	public void clienteNoEsNullTest() {
 		//arrange
-		ClienteDTO clienteDTO = new ClienteDTOTestDataBuilder().build();
+		Cliente cliente = new ClienteTestDataBuilder().build();
 		
 		//act
-		ClienteEntity clienteEntity = MapeadorClienteEntidad.mapearAEntidad(clienteDTO);
+		ClienteEntity clienteEntity = MapeadorClienteEntidad.mapearAEntidad(cliente);
 		
 		//assert
 		assertNotNull(clienteEntity);
-		assertEquals(clienteEntity.getIdentificacion(), clienteDTO.getIdentificacion());
-		assertEquals(clienteEntity.getNombres(), clienteDTO.getNombres());
-		assertEquals(clienteEntity.getApellidos(), clienteDTO.getApellidos());
+		assertEquals(clienteEntity.getIdentificacion(), cliente.getIdentificacion());
+		assertEquals(clienteEntity.getNombres(), cliente.getNombres());
+		assertEquals(clienteEntity.getApellidos(), cliente.getApellidos());
 	}
 }

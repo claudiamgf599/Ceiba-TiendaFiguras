@@ -1,7 +1,7 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.mapeador;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.ClienteEntity;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
 
 public final class MapeadorClienteEntidad {
 	
@@ -10,26 +10,26 @@ public final class MapeadorClienteEntidad {
 	}
 	
 	/**
-	 * Convierte un ClienteEntity a un ClienteDTO
+	 * Convierte un ClienteEntity a un Cliente
 	 * @param clienteEntity
 	 * @return
 	 */
-	public static ClienteDTO mapearAModelo(ClienteEntity clienteEntity) {
+	public static Cliente mapearAModelo(ClienteEntity clienteEntity) {
 		if(clienteEntity != null) {
-			return new ClienteDTO(clienteEntity.getIdentificacion(), clienteEntity.getNombres(), clienteEntity.getApellidos()); 
+			return new Cliente(clienteEntity.getIdentificacion(), clienteEntity.getNombres(), clienteEntity.getApellidos()); 
 		}else {
 			return null; 
 		}
 	}
 	
 	/**
-	 * Convierte un ClienteDTO a un ClienteEntity
-	 * @param clienteDTO
+	 * Convierte un Cliente a un ClienteEntity
+	 * @param cliente
 	 * @return
 	 */
-	public static ClienteEntity mapearAEntidad(ClienteDTO clienteDTO) {
-		if(clienteDTO != null) {
-			return new ClienteEntity(clienteDTO.getIdentificacion(), clienteDTO.getNombres(), clienteDTO.getApellidos());
+	public static ClienteEntity mapearAEntidad(Cliente cliente) {
+		if(cliente != null) {
+			return new ClienteEntity(cliente.getIdentificacion(), cliente.getNombres(), cliente.getApellidos());
 		}else {
 			return null;
 		}

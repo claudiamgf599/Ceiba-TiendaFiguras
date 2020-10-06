@@ -1,7 +1,6 @@
 package com.ceiba.tiendafiguras.testdatabuilder;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
 
@@ -10,16 +9,16 @@ public class FiguraDTOTestDataBuilder {
 	private static final String ID = "G-14";
 	private static final String NOMBRE = "Goku Transformacion Gold";
 	private static final String MARCA = "Bandai";
-	private static final Date FECHA_LANZAMIENTO = new GregorianCalendar(2020, 12, 1).getTime();
-	private static final Date FECHA_LLEGADA = new GregorianCalendar(2020, 12, 20).getTime();
+	private static final LocalDate FECHA_LANZAMIENTO = LocalDate.of(2020, 12, 1);
+	private static final LocalDate FECHA_LLEGADA = LocalDate.of(2020, 12, 20);
 	private static final int UNIDADES_PREV = 2;
 	private static final double PRECIO = 250000;
 	
 	private String id;
 	private String nombre;
 	private String marca;
-	private Date fechaLanzamiento;
-	private Date fechaLlegada;
+	private LocalDate fechaLanzamiento;
+	private LocalDate fechaLlegada;
 	private int unidadesPreventa;
 	private double precio;
 	
@@ -48,12 +47,12 @@ public class FiguraDTOTestDataBuilder {
 		return this;
 	} 
 	
-	public FiguraDTOTestDataBuilder conFechaLanzamiento(Date fechaLanzamiento) {
+	public FiguraDTOTestDataBuilder conFechaLanzamiento(LocalDate fechaLanzamiento) {
 		this.fechaLanzamiento = fechaLanzamiento;
 		return this;
 	} 
 	
-	public FiguraDTOTestDataBuilder conFechaLlegada(Date fechaLlegada) {
+	public FiguraDTOTestDataBuilder conFechaLlegada(LocalDate fechaLlegada) {
 		this.fechaLlegada = fechaLlegada;
 		return this;
 	} 

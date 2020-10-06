@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ceiba.tiendafiguras.aplicacion.comando.ComandoPreorden;
 import com.ceiba.tiendafiguras.aplicacion.comando.manejador.ManejadorCrearPreorden;
 import com.ceiba.tiendafiguras.aplicacion.consulta.ManejadorConsultarPreordenes;
-import com.ceiba.tiendafiguras.dominio.excepcion.PreordenExcepcion;
 import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
 
 @RestController
@@ -28,12 +27,12 @@ public class ControladorPreorden {
 	}
 
 	@PostMapping
-	public void generar(@RequestBody ComandoPreorden comandoPreorden) throws PreordenExcepcion {
+	public void generar(@RequestBody ComandoPreorden comandoPreorden) {
 		this.manejadorCrearPreorden.ejecutar(comandoPreorden);
 	}
 	
-	@GetMapping("/mispreordenes/{identificacionCliente}")
-	public List<PreordenDTO> listarPreordenes(@PathVariable(name = "identificacionCliente") String identificacionCliente){
+	@GetMapping("/listar/{identificacionCliente}")
+	public List<PreordenDTO> listar(@PathVariable(name = "identificacionCliente") String identificacionCliente){
 		return this.manejadorConsultarPreordenes.ejecutar(identificacionCliente);
 	}
 

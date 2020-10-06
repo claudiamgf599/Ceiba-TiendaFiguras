@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.FiguraEntity;
-import com.ceiba.tiendafiguras.testdatabuilder.FiguraDTOTestDataBuilder;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Figura;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.FiguraEntity;
 import com.ceiba.tiendafiguras.testdatabuilder.FiguraEntityTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.FiguraTestDataBuilder;
 
 public class MapeadorFiguraEntidadTest {
 
@@ -21,19 +21,19 @@ public class MapeadorFiguraEntidadTest {
 		FiguraEntity figuraEntity = null;
 		
 		//act
-		FiguraDTO figuraDTO = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
+		Figura figura = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
 		
 		//assert
-		assertNull(figuraDTO);
+		assertNull(figura);
 	}
 	
 	@Test
-	public void dtoEsNullTest() {
+	public void figuraEsNullTest() {
 		//arrange
-		FiguraDTO figuraDTO = null; 
+		Figura figura = null; 
 		
 		//act
-		FiguraEntity figuraEntity = MapeadorFiguraEntidad.mapearAEntidad(figuraDTO);
+		FiguraEntity figuraEntity = MapeadorFiguraEntidad.mapearAEntidad(figura);
 		
 		//assert
 		assertNull(figuraEntity);
@@ -45,25 +45,25 @@ public class MapeadorFiguraEntidadTest {
 		FiguraEntity figuraEntity = new FiguraEntityTestDataBuilder().build();
 		
 		//act
-		FiguraDTO figuraDTO = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
+		Figura figura = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
 		
 		//assert
-		assertNotNull(figuraDTO);
-		assertEquals(figuraDTO.getId(), figuraEntity.getId());
-		assertEquals(figuraDTO.getMarca(), figuraEntity.getMarca());
-		assertEquals(figuraDTO.getNombre(), figuraEntity.getNombre());
-		assertEquals(figuraDTO.getFechaLanzamiento(), figuraEntity.getFechaLanzamiento());
-		assertEquals(figuraDTO.getFechaLlegada(), figuraEntity.getFechaLlegada());
-		assertEquals(figuraDTO.getUnidadesPreventa(), figuraEntity.getUnidadesPreventa());
-		assertEquals(figuraDTO.getPrecio(), figuraEntity.getPrecio(), 0);
+		assertNotNull(figura);
+		assertEquals(figura.getId(), figuraEntity.getId());
+		assertEquals(figura.getMarca(), figuraEntity.getMarca());
+		assertEquals(figura.getNombre(), figuraEntity.getNombre());
+		assertEquals(figura.getFechaLanzamiento(), figuraEntity.getFechaLanzamiento());
+		assertEquals(figura.getFechaLlegada(), figuraEntity.getFechaLlegada());
+		assertEquals(figura.getUnidadesPreventa(), figuraEntity.getUnidadesPreventa());
+		assertEquals(figura.getPrecio(), figuraEntity.getPrecio(), 0);
 	}
 	
 	@Test
 	public void entidadConstruidaMetodosConNoEsNullTest() {
 		//arrange
 		FiguraEntity figuraEntity = new FiguraEntityTestDataBuilder()
-				.conFechaLanzamiento(new Date())
-				.conFechaLlegada(new Date())
+				.conFechaLanzamiento(LocalDate.now())
+				.conFechaLlegada(LocalDate.now())
 				.conId("L-45")
 				.conNombre("Gundam EX")
 				.conPrecio(100000)
@@ -71,35 +71,35 @@ public class MapeadorFiguraEntidadTest {
 				.conUnidadesPreventa(5).build();
 		
 		//act
-		FiguraDTO figuraDTO = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
+		Figura figura = MapeadorFiguraEntidad.mapearAModelo(figuraEntity);
 		
 		//assert
-		assertNotNull(figuraDTO);
-		assertEquals(figuraDTO.getId(), figuraEntity.getId());
-		assertEquals(figuraDTO.getMarca(), figuraEntity.getMarca());
-		assertEquals(figuraDTO.getNombre(), figuraEntity.getNombre());
-		assertEquals(figuraDTO.getFechaLanzamiento(), figuraEntity.getFechaLanzamiento());
-		assertEquals(figuraDTO.getFechaLlegada(), figuraEntity.getFechaLlegada());
-		assertEquals(figuraDTO.getUnidadesPreventa(), figuraEntity.getUnidadesPreventa());
-		assertEquals(figuraDTO.getPrecio(), figuraEntity.getPrecio(), 0);
+		assertNotNull(figura);
+		assertEquals(figura.getId(), figuraEntity.getId());
+		assertEquals(figura.getMarca(), figuraEntity.getMarca());
+		assertEquals(figura.getNombre(), figuraEntity.getNombre());
+		assertEquals(figura.getFechaLanzamiento(), figuraEntity.getFechaLanzamiento());
+		assertEquals(figura.getFechaLlegada(), figuraEntity.getFechaLlegada());
+		assertEquals(figura.getUnidadesPreventa(), figuraEntity.getUnidadesPreventa());
+		assertEquals(figura.getPrecio(), figuraEntity.getPrecio(), 0);
 	}	
 	
 	@Test
-	public void dtoNoEsNullTest() {
+	public void figuraNoEsNullTest() {
 		//arrange
-		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder().build();
+		Figura figura = new FiguraTestDataBuilder().build();
 		
 		//act
-		FiguraEntity figuraEntity = MapeadorFiguraEntidad.mapearAEntidad(figuraDTO);
+		FiguraEntity figuraEntity = MapeadorFiguraEntidad.mapearAEntidad(figura);
 		
 		//assert
 		assertNotNull(figuraEntity);
-		assertEquals(figuraEntity.getId(), figuraDTO.getId());
-		assertEquals(figuraEntity.getMarca(), figuraDTO.getMarca());
-		assertEquals(figuraEntity.getNombre(), figuraDTO.getNombre());
-		assertEquals(figuraEntity.getFechaLanzamiento(), figuraDTO.getFechaLanzamiento());
-		assertEquals(figuraEntity.getFechaLlegada(), figuraDTO.getFechaLlegada());
-		assertEquals(figuraEntity.getUnidadesPreventa(), figuraDTO.getUnidadesPreventa());
-		assertEquals(figuraEntity.getPrecio(), figuraDTO.getPrecio(), 0);
+		assertEquals(figuraEntity.getId(), figura.getId());
+		assertEquals(figuraEntity.getMarca(), figura.getMarca());
+		assertEquals(figuraEntity.getNombre(), figura.getNombre());
+		assertEquals(figuraEntity.getFechaLanzamiento(), figura.getFechaLanzamiento());
+		assertEquals(figuraEntity.getFechaLlegada(), figura.getFechaLlegada());
+		assertEquals(figuraEntity.getUnidadesPreventa(), figura.getUnidadesPreventa());
+		assertEquals(figuraEntity.getPrecio(), figura.getPrecio(), 0);
 	}
 }

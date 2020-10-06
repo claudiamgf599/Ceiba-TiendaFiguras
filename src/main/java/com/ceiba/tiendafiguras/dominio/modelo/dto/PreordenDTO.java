@@ -1,6 +1,6 @@
 package com.ceiba.tiendafiguras.dominio.modelo.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,25 +17,16 @@ public class PreordenDTO {
 	
 	private double precioPreorden;
 	
-	private Date fechaPreorden;
+	private LocalDate fechaPreorden;
 
-	public PreordenDTO(FiguraDTO figura, ClienteDTO cliente, double precioPreorden, Date fechaPreorden, Long id) {
+	public PreordenDTO(FiguraDTO figura, ClienteDTO cliente, double precioPreorden, LocalDate fechaPreorden, Long id) {
 		this.figura = figura;
 		this.cliente = cliente;
 		this.precioPreorden = precioPreorden;
 		this.id = id;
-		this.fechaPreorden = (Date) fechaPreorden.clone();
+		this.fechaPreorden = fechaPreorden;
 	}
 	
-	public PreordenDTO(String idFigura, String idCliente) {
-		FiguraDTO figuraDTO = new FiguraDTO();
-		figuraDTO.setId(idFigura);
-		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setIdentificacion(idCliente);
-		this.setFigura(figuraDTO);
-		this.setCliente(clienteDTO);
-	}
-
 	public PreordenDTO() {
 
 	}

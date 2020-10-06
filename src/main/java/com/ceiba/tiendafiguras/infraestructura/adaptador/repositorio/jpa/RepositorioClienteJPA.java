@@ -1,6 +1,6 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.jpa;
 
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.ClienteEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
 
 public interface RepositorioClienteJPA {
 

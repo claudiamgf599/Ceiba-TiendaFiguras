@@ -3,7 +3,7 @@ package com.ceiba.tiendafiguras.infraestructura.controlador;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +18,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ceiba.tiendafiguras.aplicacion.comando.ComandoPreorden;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
-import com.ceiba.tiendafiguras.testdatabuilder.ClienteDTOTestDataBuilder;
-import com.ceiba.tiendafiguras.testdatabuilder.FiguraDTOTestDataBuilder;
-import com.ceiba.tiendafiguras.testdatabuilder.PreordenDTOTestDataBuilder;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Figura;
+import com.ceiba.tiendafiguras.testdatabuilder.ClienteTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.FiguraTestDataBuilder;
+import com.ceiba.tiendafiguras.testdatabuilder.PreordenTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -43,14 +43,14 @@ public class ControladorPreordenTest {
 	@Test
 	public void generarPreordenTest() throws Exception {
 		
-		ClienteDTO clienteDTO = new ClienteDTOTestDataBuilder()
+		Cliente cliente = new ClienteTestDataBuilder()
 				.conIdentificacion("C43259599").conNombres("Claudia Maria").conApellidos("Gomez Florez")
 				.build();
-		FiguraDTO figuraDTO = new FiguraDTOTestDataBuilder() 
-				.conId("V-3").conNombre("Vegeta").conMarca("Bandai").conFechaLanzamiento(new GregorianCalendar(2020, 10, 15).getTime())
-				.conFechaLlegada(new GregorianCalendar(2020, 11, 01).getTime()).conUnidadesPreventa(10).conPrecio(350000)
+		Figura figura = new FiguraTestDataBuilder() 
+				.conId("V-3").conNombre("Vegeta").conMarca("Bandai").conFechaLanzamiento(LocalDate.of(2020, 10, 15))
+				.conFechaLlegada(LocalDate.of(2020, 11, 01)).conUnidadesPreventa(10).conPrecio(350000)
 				.build();
-		ComandoPreorden comandoPreorden = new PreordenDTOTestDataBuilder().conCliente(clienteDTO).conFigura(figuraDTO).buildComando();
+		ComandoPreorden comandoPreorden = new PreordenTestDataBuilder().conCliente(cliente).conFigura(figura).buildComando();
 		
 		System.out.println(objectMapper.writeValueAsString(comandoPreorden));
 		
@@ -65,7 +65,7 @@ public class ControladorPreordenTest {
     @Test
     public void obtenerPreordenesPorCliente() throws Exception {
     	mvc.perform( MockMvcRequestBuilders
-                .get("/api/preorden/mispreordenes/{identificacionCliente}", "C43259599")
+                .get("/api/preorden/listar/{identificacionCliente}", "C43259599")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());

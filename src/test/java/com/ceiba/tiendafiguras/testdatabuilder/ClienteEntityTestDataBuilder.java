@@ -1,6 +1,6 @@
 package com.ceiba.tiendafiguras.testdatabuilder;
 
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.ClienteEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
 
 public class ClienteEntityTestDataBuilder {
 

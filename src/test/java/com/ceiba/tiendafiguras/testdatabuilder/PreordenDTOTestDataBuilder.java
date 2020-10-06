@@ -1,7 +1,6 @@
 package com.ceiba.tiendafiguras.testdatabuilder;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 import com.ceiba.tiendafiguras.aplicacion.comando.ComandoPreorden;
 import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
@@ -14,13 +13,13 @@ public class PreordenDTOTestDataBuilder {
 	private static final FiguraDTO FIGURA = new FiguraDTOTestDataBuilder().build();
 	private static final ClienteDTO CLIENTE = new ClienteDTOTestDataBuilder().build();
 	private static final double PRECIO = 140000;
-	private static final Date FECHA_PREORDEN = new GregorianCalendar(2020, 9, 20).getTime();
+	private static final LocalDate FECHA_PREORDEN = LocalDate.of(2020, 9, 20);
 	
 	private Long id;
 	private FiguraDTO figura;
 	private ClienteDTO cliente; 
 	private double precio;
-	private Date fechaPreorden;
+	private LocalDate fechaPreorden;
 	
 	public PreordenDTOTestDataBuilder() {
 		this.id = ID; 
@@ -50,7 +49,7 @@ public class PreordenDTOTestDataBuilder {
 		return this;
 	} 
 	
-	public PreordenDTOTestDataBuilder conFechaPreorden(Date fechaPreorden) {
+	public PreordenDTOTestDataBuilder conFechaPreorden(LocalDate fechaPreorden) {
 		this.fechaPreorden = fechaPreorden;
 		return this;
 	} 

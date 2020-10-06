@@ -1,6 +1,6 @@
 package com.ceiba.tiendafiguras.dominio.puerto.repositorio;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
 
 public interface RepositorioCliente {
 
@@ -9,5 +9,5 @@ public interface RepositorioCliente {
 	 * @param identificacion
 	 * @return
 	 */
-	ClienteDTO obtenerPorId(String identificacion);
+	Cliente obtenerPorId(String identificacion);
 }

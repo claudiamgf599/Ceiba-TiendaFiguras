@@ -1,11 +1,10 @@
 package com.ceiba.tiendafiguras.testdatabuilder;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.ClienteEntity;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.FiguraEntity;
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.PreordenEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.FiguraEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.PreordenEntity;
 
 public class PreordenEntityTestDataBuilder {
 
@@ -13,13 +12,13 @@ public class PreordenEntityTestDataBuilder {
 	private static final FiguraEntity FIGURA = new FiguraEntityTestDataBuilder().build();
 	private static final ClienteEntity CLIENTE = new ClienteEntityTestDataBuilder().build();
 	private static final double PRECIO = 140000;
-	private static final Date FECHA_PREORDEN = new GregorianCalendar(2020, 9, 20).getTime();
+	private static final LocalDate FECHA_PREORDEN = LocalDate.of(2020, 9, 20);
 	
 	private Long id;
 	private FiguraEntity figura;
 	private ClienteEntity cliente; 
 	private double precio;
-	private Date fechaPreorden;
+	private LocalDate fechaPreorden;
 	
 	public PreordenEntityTestDataBuilder() {
 		this.id = ID; 
@@ -49,7 +48,7 @@ public class PreordenEntityTestDataBuilder {
 		return this;
 	} 
 	
-	public PreordenEntityTestDataBuilder conFechaPreorden(Date fechaPreorden) {
+	public PreordenEntityTestDataBuilder conFechaPreorden(LocalDate fechaPreorden) {
 		this.fechaPreorden = fechaPreorden;
 		return this;
 	} 

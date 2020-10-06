@@ -1,17 +1,14 @@
 package com.ceiba.tiendafiguras.dominio.puerto.repositorio;
 
-import java.util.List;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Preorden;
 
-import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
 
-/**
- * Registra una preorden
- * @author claudia.gomez
- *
- */
 public interface RepositorioPreorden {
 
-	void generarPreorden(PreordenDTO preorden);
+	/**
+	 * Genera una preorden para el cliente y figura
+	 * @param preorden
+	 */
+	void generarPreorden(Preorden preorden);
 	
-	List<PreordenDTO> obtenerPreordenesCliente(String identificacionCliente);
 }

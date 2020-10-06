@@ -1,15 +1,15 @@
 package com.ceiba.tiendafiguras.dominio.servicio;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.tiendafiguras.dominio.excepcion.ClienteExcepcion;
 import com.ceiba.tiendafiguras.dominio.excepcion.PreordenExcepcion;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.FiguraDTO;
-import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Figura;
+import com.ceiba.tiendafiguras.dominio.modelo.entidad.Preorden;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioCliente;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioFigura;
 import com.ceiba.tiendafiguras.dominio.puerto.repositorio.RepositorioPreorden;
@@ -37,8 +37,8 @@ public class ServicioGenerarPreorden {
 	 * Genera una preorden para el cliente y la figura 
 	 * @param preorden
 	 */
-	public void ejecutar(PreordenDTO preorden) {
-		ClienteDTO cliente = repositorioCliente.obtenerPorId(preorden.getCliente().getIdentificacion());
+	public void ejecutar(Preorden preorden) {
+		Cliente cliente = repositorioCliente.obtenerPorId(preorden.getCliente().getIdentificacion());
 		if(cliente == null) {
 			throw new ClienteExcepcion(textoClienteNoExiste);
 		}
@@ -47,7 +47,7 @@ public class ServicioGenerarPreorden {
 			throw new PreordenExcepcion(textoProductoNoDisponible);
 		}
 		
-		preorden.setFechaPreorden(new Date());
+		preorden.setFechaPreorden(LocalDate.now());
 		preorden.setPrecioPreorden(100000);  //PENDIENTE - calcular el precio
 		
 		repositorioPreorden.generarPreorden(preorden);
@@ -60,7 +60,7 @@ public class ServicioGenerarPreorden {
 	 */
 	public boolean isFiguraDisponiblePreorden(String idFigura) {
 		boolean isPreordenable = true;
-		FiguraDTO figura = repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura);
+		Figura figura = repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura);
 		if(figura == null) {
 			isPreordenable = false;
 		}

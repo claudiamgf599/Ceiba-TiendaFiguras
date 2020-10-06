@@ -1,6 +1,6 @@
-package com.ceiba.tiendafiguras.dominio.modelo.entidad;
+package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,16 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Figura")
-@NamedQuery(name = "Figura.findPreordenables", 
-	query = "SELECT figura FROM Figura figura WHERE figura.fechaLanzamiento > :fechaLanzamiento "
-			+ "AND figura.fechaLlegada > :fechaLlegada "
-			+ "AND figura.unidadesPreventa > (SELECT count(1) FROM Preorden preorden WHERE preorden.figura.id = figura.id )")
 @NamedQuery(name = "Figura.findById", query = "SELECT figura FROM Figura figura WHERE figura.id = :id")
-@NamedQuery(name = "Figura.disponiblePreorden", 
-query = "SELECT figura FROM Figura figura WHERE figura.id = :id AND "
-		+ "figura.fechaLanzamiento > :fechaLanzamiento "
-		+ "AND figura.fechaLlegada > :fechaLlegada "
-		+ "AND figura.unidadesPreventa > (SELECT count(1) FROM Preorden preorden WHERE preorden.figura.id = figura.id )")
 public class FiguraEntity {
 
 	@Id
@@ -38,10 +29,10 @@ public class FiguraEntity {
 	private String marca;
 	
 	@Column(nullable = false)
-	private Date fechaLanzamiento;
+	private LocalDate fechaLanzamiento;
 	
 	@Column(nullable = false)
-	private Date fechaLlegada;
+	private LocalDate fechaLlegada;
 	
 	@Column(nullable = false)
 	private int unidadesPreventa;
@@ -53,13 +44,13 @@ public class FiguraEntity {
 		
 	}
 
-	public FiguraEntity(String id, String nombre, String marca, Date fechaLanzamiento, Date fechaLlegada,
+	public FiguraEntity(String id, String nombre, String marca, LocalDate fechaLanzamiento, LocalDate fechaLlegada,
 			int unidadesPreventa, double precio) {
 		this.id = id;
 		this.nombre = nombre;
 		this.marca = marca;
-		this.fechaLanzamiento = (Date) fechaLanzamiento.clone();
-		this.fechaLlegada = (Date) fechaLlegada.clone();
+		this.fechaLanzamiento = fechaLanzamiento;
+		this.fechaLlegada = fechaLlegada;
 		this.unidadesPreventa = unidadesPreventa;
 		this.precio = precio;
 	} 

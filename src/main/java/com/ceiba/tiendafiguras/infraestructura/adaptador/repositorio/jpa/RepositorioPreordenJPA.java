@@ -2,7 +2,7 @@ package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.jpa;
 
 import java.util.List;
 
-import com.ceiba.tiendafiguras.dominio.modelo.entidad.PreordenEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.PreordenEntity;
 
 public interface RepositorioPreordenJPA {
 	

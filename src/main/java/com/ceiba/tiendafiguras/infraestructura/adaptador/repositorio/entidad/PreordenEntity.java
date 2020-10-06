@@ -1,6 +1,6 @@
-package com.ceiba.tiendafiguras.dominio.modelo.entidad;
+package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Preorden")
-@NamedQuery(name = "Preorden.findByCliente", query = "SELECT preorden FROM Preorden preorden WHERE preorden.cliente.identificacion = :idCliente "
-		+ "ORDER BY fechaPreorden DESC")
 public class PreordenEntity {
 	
 	@Id
@@ -37,14 +34,14 @@ public class PreordenEntity {
 	private double precio;
 	
 	@Column(nullable = false)
-	private Date fechaPreorden;
+	private LocalDate fechaPreorden;
 
-	public PreordenEntity(Long id, FiguraEntity figura, ClienteEntity cliente, double precio, Date fechaPreorden) {
+	public PreordenEntity(Long id, FiguraEntity figura, ClienteEntity cliente, double precio, LocalDate fechaPreorden) {
 		this.id = id;
 		this.figura = figura;
 		this.cliente = cliente;
 		this.precio = precio;
-		this.fechaPreorden = (Date) fechaPreorden.clone();
+		this.fechaPreorden = fechaPreorden;
 	}
 
 	public PreordenEntity() {

@@ -1,6 +1,6 @@
 package com.ceiba.tiendafiguras.dominio.modelo.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,21 +15,21 @@ public class FiguraDTO {
 	
 	private String marca;
 	
-	private Date fechaLanzamiento;
+	private LocalDate fechaLanzamiento;
 
-	private Date fechaLlegada;
+	private LocalDate fechaLlegada;
 
 	private int unidadesPreventa;
 	
 	private double precio;
 
-	public FiguraDTO(String id, String nombre, String marca, Date fechaLanzamiento, Date fechaLlegada,
+	public FiguraDTO(String id, String nombre, String marca, LocalDate fechaLanzamiento, LocalDate fechaLlegada,
 			int unidadesPreventa, double precio) {
 		this.id = id;
 		this.nombre = nombre;
 		this.marca = marca;
-		this.fechaLanzamiento = (Date) fechaLanzamiento.clone();
-		this.fechaLlegada = (Date) fechaLlegada.clone();
+		this.fechaLanzamiento = fechaLanzamiento;
+		this.fechaLlegada = fechaLlegada;
 		this.unidadesPreventa = unidadesPreventa;
 		this.precio = precio;
 	}
