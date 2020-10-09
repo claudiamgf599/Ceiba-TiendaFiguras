@@ -12,6 +12,7 @@ import com.ceiba.tiendafiguras.infraestructura.adaptador.dao.DaoPreordenJPA;
 import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.ClienteEntity;
 import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.FiguraEntity;
 import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.entidad.PreordenEntity;
+import com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio.mapeador.MapeadorPreordenEntidad;
 
 @Repository
 public class RepositorioPreordenPersistente implements RepositorioPreorden {
@@ -27,9 +28,10 @@ public class RepositorioPreordenPersistente implements RepositorioPreorden {
 	}
 
 	@Override
-	public void generarPreorden(Preorden preorden) {
+	public Preorden generarPreorden(Preorden preorden) {
 		PreordenEntity preordenEntity = buildPreordenEntity(preorden);
-		daoPreordenJPA.save(preordenEntity);
+		PreordenEntity preordenGenerada = daoPreordenJPA.save(preordenEntity);
+		return MapeadorPreordenEntidad.mapearAModelo(preordenGenerada);
 	}
 	
 	private PreordenEntity buildPreordenEntity(Preorden preorden) {
@@ -41,6 +43,11 @@ public class RepositorioPreordenPersistente implements RepositorioPreorden {
 		preordenEntity.setFechaPreorden(preorden.getFechaPreorden());
 		preordenEntity.setPrecio(preorden.getPrecioPreorden());
 		return preordenEntity;
+	}
+
+	@Override
+	public void eliminarPreorden(Long id) {
+		daoPreordenJPA.deleteById(id);
 	}
 
 }

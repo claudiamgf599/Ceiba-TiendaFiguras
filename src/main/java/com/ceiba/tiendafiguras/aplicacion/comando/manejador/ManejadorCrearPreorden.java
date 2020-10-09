@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.ceiba.tiendafiguras.aplicacion.comando.ComandoPreorden;
 import com.ceiba.tiendafiguras.aplicacion.comando.fabrica.FabricaPreorden;
+import com.ceiba.tiendafiguras.aplicacion.mapeador.MapeadorPreorden;
+import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
 import com.ceiba.tiendafiguras.dominio.modelo.entidad.Preorden;
 import com.ceiba.tiendafiguras.dominio.servicio.ServicioGenerarPreorden;
 
@@ -21,8 +23,9 @@ public class ManejadorCrearPreorden {
 	}
 	
 	@Transactional
-	public void ejecutar(ComandoPreorden comandoPreorden) {
+	public PreordenDTO ejecutar(ComandoPreorden comandoPreorden) {
 		Preorden preorden = fabricaPreorden.crearPreorden(comandoPreorden);
-		servicioGenerarPreorden.ejecutar(preorden);
+		Preorden preordenGenerada = servicioGenerarPreorden.ejecutar(preorden);
+		return MapeadorPreorden.mapearADTO(preordenGenerada);
 	}
 }

@@ -9,6 +9,12 @@ public interface RepositorioPreorden {
 	 * Genera una preorden para el cliente y figura
 	 * @param preorden
 	 */
-	void generarPreorden(Preorden preorden);
+	Preorden generarPreorden(Preorden preorden);
+	
+	/**
+	 * Elimina una preorden identificada por el id
+	 * @param id
+	 */
+	void eliminarPreorden(Long id);
 	
 }

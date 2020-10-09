@@ -37,7 +37,7 @@ public class ServicioGenerarPreorden {
 	 * Genera una preorden para el cliente y la figura 
 	 * @param preorden
 	 */
-	public void ejecutar(Preorden preorden) {
+	public Preorden ejecutar(Preorden preorden) {
 		Cliente cliente = repositorioCliente.obtenerPorId(preorden.getCliente().getIdentificacion());
 		if(cliente == null) {
 			throw new ClienteExcepcion(textoClienteNoExiste);
@@ -48,9 +48,9 @@ public class ServicioGenerarPreorden {
 		}
 		
 		preorden.setFechaPreorden(LocalDate.now());
-		preorden.setPrecioPreorden(100000);  //PENDIENTE - calcular el precio
+		preorden.setPrecioPreorden(100000);  //TODO - PENDIENTE - calcular el precio
 		
-		repositorioPreorden.generarPreorden(preorden);
+		return (repositorioPreorden.generarPreorden(preorden));
 	}
 	
 	/**

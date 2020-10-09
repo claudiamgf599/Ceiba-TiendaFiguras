@@ -54,12 +54,15 @@ public class ControladorPreordenTest {
 		
 		System.out.println(objectMapper.writeValueAsString(comandoPreorden));
 		
-		mvc.perform(MockMvcRequestBuilders
-                .post("/api/preorden")
+		/*MvcResult mvcResult = */ mvc.perform(MockMvcRequestBuilders
+                .post("/api/preorden/generar")
                 .content(objectMapper.writeValueAsString(comandoPreorden))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
+		
+		//System.out.println("MVC Result: " + mvcResult);
+		///*.andReturn()*/;
 	}
 	
     @Test
