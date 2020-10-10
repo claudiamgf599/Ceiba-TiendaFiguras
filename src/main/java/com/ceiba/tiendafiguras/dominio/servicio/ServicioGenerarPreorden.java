@@ -71,7 +71,7 @@ public class ServicioGenerarPreorden {
 		
 		if(ultimaPreorden != null){
 			int diasDesdePreorden = ValidadorFechas.diasHabilesDesdeFecha(ultimaPreorden.getFechaPreorden(), LocalDate.now());
-			if(diasDesdePreorden > DIAS_DESDE_ULTIMA_PREORDEN) {
+			if(diasDesdePreorden < DIAS_DESDE_ULTIMA_PREORDEN) {
 				puedePreordenar = false;
 			}
 		}

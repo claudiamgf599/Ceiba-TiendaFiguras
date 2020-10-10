@@ -111,7 +111,7 @@ public class ServicioGenerarPreordenTest {
 	}
 	
 	@Test
-	public void clienteSiPuedePreordenarTest() {
+	public void clienteNoPuedePreordenarTest() {
 
 		//arrange
 		String idCliente = "C2568985";
@@ -127,11 +127,11 @@ public class ServicioGenerarPreordenTest {
 		boolean puedePreordenar = servicioGenerarPreorden.clientePuedePreordenar(idCliente);
 		
 		//assert
-		assertTrue(puedePreordenar);		
+		assertFalse(puedePreordenar);		
 	}
 	
 	@Test
-	public void clienteNoPuedePreordenarTest() {
+	public void clienteSiPuedePreordenarTest() {
 		
 		//arrange
 		String idCliente = "C2568985";
@@ -147,7 +147,7 @@ public class ServicioGenerarPreordenTest {
 		boolean puedePreordenar = servicioGenerarPreorden.clientePuedePreordenar(idCliente);
 		
 		//assert
-		assertFalse(puedePreordenar);		
+		assertTrue(puedePreordenar);		
 	}
 	
 	@Test
@@ -182,7 +182,7 @@ public class ServicioGenerarPreordenTest {
 	}
 	
 	@Test
-	public void clienteNoPuedeGenerarPreordenTest() {
+	public void clienteSiPuedeGenerarPreordenTest() {
 		
 		//arrange
 		String idFigura = "M-2";
@@ -204,9 +204,6 @@ public class ServicioGenerarPreordenTest {
 		when(repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura)).thenReturn(figura);
 		when(repositorioCliente.obtenerPorId(idCliente)).thenReturn(cliente);
 		when(repositorioPreorden.obtenerUltimaPreordenCliente(idCliente)).thenReturn(preorden);
-		
-		thrown.expect(PreordenExcepcion.class);
-		thrown.expectMessage(ServicioGenerarPreorden.CLIENTE_NO_PUEDE_PREORDENAR);
 		
 		ServicioGenerarPreorden servicioGenerarPreorden = new ServicioGenerarPreorden(repositorioPreorden, repositorioFigura, repositorioCliente);
 		

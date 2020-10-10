@@ -1,8 +1,6 @@
 package com.ceiba.tiendafiguras.infraestructura.controlador;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,19 +38,8 @@ public class ControladorPreorden {
 	}
 
 	@PostMapping("/generar")
-	public ResponseEntity<?> generar(@RequestBody ComandoPreorden comandoPreorden) {
-		Map<String, Object> response = new HashMap<String, Object>();
-		PreordenDTO preordenDTO = null;
-		try {
-			preordenDTO = this.manejadorCrearPreorden.ejecutar(comandoPreorden);
-		}catch(Exception e) {
-			response.put("mensaje", e.getMessage());
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		response.put("mensaje", "Preorden creada con exito");
-		response.put("preorden", preordenDTO);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	public ResponseEntity<PreordenDTO> generar(@RequestBody ComandoPreorden comandoPreorden) {
+		return new ResponseEntity<>(this.manejadorCrearPreorden.ejecutar(comandoPreorden), HttpStatus.CREATED);
 	}
 
 	
