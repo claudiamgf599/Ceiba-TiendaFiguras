@@ -17,4 +17,18 @@ public interface RepositorioPreorden {
 	 */
 	void eliminarPreorden(Long id);
 	
+	/**
+	 * Obtiene la última preorden que ha realizado el cliente
+	 * @param identificacionCliente
+	 * @return
+	 */
+	Preorden obtenerUltimaPreordenCliente(String identificacionCliente);
+	
+	/**
+	 * Recupera una preorden dado su identificador único
+	 * @param idPreorden
+	 * @return
+	 */
+	Preorden obtenerPreordenById(Long idPreorden);
+	
 }

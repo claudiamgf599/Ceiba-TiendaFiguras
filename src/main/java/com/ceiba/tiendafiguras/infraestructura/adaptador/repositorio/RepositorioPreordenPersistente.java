@@ -1,5 +1,6 @@
 package com.ceiba.tiendafiguras.infraestructura.adaptador.repositorio;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -48,6 +49,19 @@ public class RepositorioPreordenPersistente implements RepositorioPreorden {
 	@Override
 	public void eliminarPreorden(Long id) {
 		daoPreordenJPA.deleteById(id);
+	}
+
+	@Override
+	public Preorden obtenerUltimaPreordenCliente(String identificacionCliente) {
+		List<PreordenEntity> preordenes = daoPreordenJPA.obtenerPreordenesEntityCliente(identificacionCliente);
+		PreordenEntity ultimaPreorden = preordenes.stream().findFirst().orElse(null);
+		return MapeadorPreordenEntidad.mapearAModelo(ultimaPreorden);
+	}
+
+	@Override
+	public Preorden obtenerPreordenById(Long idPreorden) {
+		PreordenEntity preordenEntity = daoPreordenJPA.findById(idPreorden).orElse(null);
+		return MapeadorPreordenEntidad.mapearAModelo(preordenEntity);
 	}
 
 }

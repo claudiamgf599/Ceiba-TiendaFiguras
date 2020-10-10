@@ -18,13 +18,16 @@ public class PreordenDTO {
 	private double precioPreorden;
 	
 	private LocalDate fechaPreorden;
+	
+	private boolean puedeCancelarPreorden;
 
-	public PreordenDTO(FiguraDTO figura, ClienteDTO cliente, double precioPreorden, LocalDate fechaPreorden, Long id) {
+	public PreordenDTO(FiguraDTO figura, ClienteDTO cliente, double precioPreorden, LocalDate fechaPreorden, Long id, boolean puedeCancelarPreorden) {
 		this.figura = figura;
 		this.cliente = cliente;
 		this.precioPreorden = precioPreorden;
 		this.id = id;
 		this.fechaPreorden = fechaPreorden;
+		this.puedeCancelarPreorden = puedeCancelarPreorden;
 	}
 	
 	public PreordenDTO() {
@@ -34,7 +37,7 @@ public class PreordenDTO {
 	@Override
 	public String toString() {
 		return "figura: " + figura.toString() + " cliente: " + cliente.toString() + " precioPreorden: " + precioPreorden + " fechaPreorden: " 
-				+ fechaPreorden + " id: " + id;
+				+ fechaPreorden + " id: " + id + " puedeCancelarPreorden: " + puedeCancelarPreorden;
 	}
 	
 }

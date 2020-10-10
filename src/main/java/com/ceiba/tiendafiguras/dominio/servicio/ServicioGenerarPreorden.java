@@ -1,8 +1,8 @@
 package com.ceiba.tiendafiguras.dominio.servicio;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.tiendafiguras.dominio.excepcion.ClienteExcepcion;
@@ -27,44 +27,77 @@ public class ServicioGenerarPreorden {
 		this.repositorioCliente = repositorioCliente;
 	}
 	
-	@Value("${texto.serviciogenerarpreorden.productonodisponible}")
-	private String textoProductoNoDisponible;
+	public static final int DESCUENTO_2_MESES = 10;
+	public static final int DESCUENTO_3_MESES = 15;
+	public static final int DIAS_DESDE_ULTIMA_PREORDEN = 15;
 	
-	@Value("${texto.serviciogenerarpreorden.clientenoexiste}")
-	private String textoClienteNoExiste;
+	public static final String PRODUCTO_NO_DISPONIBLE = "Se ha agotado el stock para preordenar la figura";
+	public static final String CLIENTE_NO_EXISTE = "El cliente no se encuentra registrado";
+	public static final String CLIENTE_NO_PUEDE_PREORDENAR = "No han pasado los dias suficientes desde la ultima preorden para poder generar una nueva preorden";
 	
 	/**
 	 * Genera una preorden para el cliente y la figura 
 	 * @param preorden
 	 */
 	public Preorden ejecutar(Preorden preorden) {
+		
 		Cliente cliente = repositorioCliente.obtenerPorId(preorden.getCliente().getIdentificacion());
 		if(cliente == null) {
-			throw new ClienteExcepcion(textoClienteNoExiste);
+			throw new ClienteExcepcion(CLIENTE_NO_EXISTE);
 		}
 		
-		if(!isFiguraDisponiblePreorden(preorden.getFigura().getId())) {
-			throw new PreordenExcepcion(textoProductoNoDisponible);
+		Figura figura = repositorioFigura.obtenerFiguraDisponiblePreorden(preorden.getFigura().getId());
+		if(figura == null) {
+			throw new PreordenExcepcion(PRODUCTO_NO_DISPONIBLE);
 		}
 		
+		if(!clientePuedePreordenar(preorden.getCliente().getIdentificacion())) {
+			throw new PreordenExcepcion(CLIENTE_NO_PUEDE_PREORDENAR);
+		}
+		
+		preorden.setPrecioPreorden(obtenerPrecioPreorden(figura.getFechaLanzamiento(), figura.getPrecio()));
 		preorden.setFechaPreorden(LocalDate.now());
-		preorden.setPrecioPreorden(100000);  //TODO - PENDIENTE - calcular el precio
-		
 		return (repositorioPreorden.generarPreorden(preorden));
 	}
 	
 	/**
-	 * Indica si la figura identificada con el idFigura esta disponible en stock para ser preordenada
-	 * @param idFigura
+	 * @param identificacionCliente
 	 * @return
 	 */
-	public boolean isFiguraDisponiblePreorden(String idFigura) {
-		boolean isPreordenable = true;
-		Figura figura = repositorioFigura.obtenerFiguraDisponiblePreorden(idFigura);
-		if(figura == null) {
-			isPreordenable = false;
+	public boolean clientePuedePreordenar(String identificacionCliente) {
+		
+		boolean puedePreordenar = true;
+		Preorden ultimaPreorden = repositorioPreorden.obtenerUltimaPreordenCliente(identificacionCliente);
+		
+		if(ultimaPreorden != null){
+			int diasDesdePreorden = ValidadorFechas.diasHabilesDesdeFecha(ultimaPreorden.getFechaPreorden(), LocalDate.now());
+			if(diasDesdePreorden > DIAS_DESDE_ULTIMA_PREORDEN) {
+				puedePreordenar = false;
+			}
 		}
-		return isPreordenable;
+		
+		return puedePreordenar; 
+	}
+	
+	/**
+	 * Obtiene el precio de la preorden validando si tiene descuentos
+	 * @param fechaLanzamiento
+	 * @param precioFigura
+	 * @return
+	 */
+	public double obtenerPrecioPreorden(LocalDate fechaLanzamiento, double precioFigura) {
+		
+		double precioPreorden = precioFigura;
+		LocalDate fechaActual = LocalDate.now();
+		long mesesEntreFechas = ChronoUnit.MONTHS.between(fechaActual, fechaLanzamiento);
+		
+		if(mesesEntreFechas >= 2 && mesesEntreFechas < 3) {
+			precioPreorden = precioPreorden - ((precioPreorden * DESCUENTO_2_MESES) / 100);
+		}else if(mesesEntreFechas > 3) {
+			precioPreorden = precioPreorden - ((precioPreorden * DESCUENTO_3_MESES) / 100);
+		}
+
+		return precioPreorden;
 	}
 
 }

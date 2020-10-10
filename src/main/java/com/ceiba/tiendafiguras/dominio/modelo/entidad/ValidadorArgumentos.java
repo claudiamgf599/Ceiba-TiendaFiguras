@@ -12,10 +12,5 @@ public final class ValidadorArgumentos {
             throw new ValidadorArgumentosExcepcion(mensaje);
         }
     }
-    
-    public static void validarMayorACero(double valor, String mensaje){
-        if(valor <= 0) {
-            throw new ValidadorArgumentosExcepcion(mensaje);
-        }
-    }
+
 }

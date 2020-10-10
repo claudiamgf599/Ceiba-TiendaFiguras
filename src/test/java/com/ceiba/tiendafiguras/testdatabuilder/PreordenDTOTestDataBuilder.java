@@ -55,7 +55,7 @@ public class PreordenDTOTestDataBuilder {
 	} 
 	
 	public PreordenDTO build() {
-		return new PreordenDTO(figura, cliente, precio, fechaPreorden, id);
+		return new PreordenDTO(figura, cliente, precio, fechaPreorden, id, true);
 	}	
 	
 	public ComandoPreorden buildComando() {

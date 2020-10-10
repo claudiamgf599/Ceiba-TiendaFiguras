@@ -38,14 +38,6 @@ public class ControladorPreorden {
 		this.manejadorCancelarPreorden = manejadorCancelarPreorden;
 		this.manejadorConsultarPreordenes = manejadorConsultarPreordenes;
 	}
-	
-/*
-	  	@PostMapping("/generar")
-		@ResponseStatus(HttpStatus.CREATED)
-		public PreordenDTO generar(@RequestBody ComandoPreorden comandoPreorden) {
-			return this.manejadorCrearPreorden.ejecutar(comandoPreorden);
-		}
-*/
 
 	@PostMapping("/generar")
 	public ResponseEntity<?> generar(@RequestBody ComandoPreorden comandoPreorden) {
@@ -62,6 +54,7 @@ public class ControladorPreorden {
 		response.put("preorden", preordenDTO);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
+
 	
 	@GetMapping("/listar/{identificacionCliente}")
 	public List<PreordenDTO> listar(@PathVariable(name = "identificacionCliente") String identificacionCliente){

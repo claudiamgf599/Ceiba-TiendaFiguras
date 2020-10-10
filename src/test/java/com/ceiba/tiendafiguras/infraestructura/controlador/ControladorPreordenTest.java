@@ -1,6 +1,7 @@
 package com.ceiba.tiendafiguras.infraestructura.controlador;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
@@ -16,6 +17,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ceiba.tiendafiguras.aplicacion.comando.ComandoPreorden;
 import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
@@ -24,6 +27,9 @@ import com.ceiba.tiendafiguras.testdatabuilder.ClienteTestDataBuilder;
 import com.ceiba.tiendafiguras.testdatabuilder.FiguraTestDataBuilder;
 import com.ceiba.tiendafiguras.testdatabuilder.PreordenTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -44,7 +50,7 @@ public class ControladorPreordenTest {
 	public void generarPreordenTest() throws Exception {
 		
 		Cliente cliente = new ClienteTestDataBuilder()
-				.conIdentificacion("C43259599").conNombres("Claudia Maria").conApellidos("Gomez Florez")
+				.conIdentificacion("C8266699").conNombres("Claudia Maria").conApellidos("Gomez Florez")
 				.build();
 		Figura figura = new FiguraTestDataBuilder() 
 				.conId("V-3").conNombre("Vegeta").conMarca("Bandai").conFechaLanzamiento(LocalDate.of(2020, 10, 15))
@@ -54,24 +60,32 @@ public class ControladorPreordenTest {
 		
 		System.out.println(objectMapper.writeValueAsString(comandoPreorden));
 		
-		/*MvcResult mvcResult = */ mvc.perform(MockMvcRequestBuilders
+		mvc.perform(MockMvcRequestBuilders
                 .post("/api/preorden/generar")
                 .content(objectMapper.writeValueAsString(comandoPreorden))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
-		
-		//System.out.println("MVC Result: " + mvcResult);
-		///*.andReturn()*/;
+				.andDo(print())
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.preorden.cliente.identificacion", is("C8266699")));
 	}
 	
     @Test
-    public void obtenerPreordenesPorCliente() throws Exception {
+    public void obtenerPreordenesPorClienteTest() throws Exception {
     	mvc.perform( MockMvcRequestBuilders
                 .get("/api/preorden/listar/{identificacionCliente}", "C43259599")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(1)));
+    }
+    
+    @Test
+    public void cancelarPreordenTest() throws Exception {
+    	mvc.perform( MockMvcRequestBuilders
+                .delete("/api/preorden/cancelar/{idPreorden}", "20001")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 	
 }

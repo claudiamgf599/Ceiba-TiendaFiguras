@@ -1,5 +1,7 @@
 package com.ceiba.tiendafiguras.aplicacion.mapeador;
 
+import java.time.LocalDate;
+
 import com.ceiba.tiendafiguras.dominio.modelo.dto.PreordenDTO;
 import com.ceiba.tiendafiguras.dominio.modelo.entidad.Preorden;
 
@@ -17,7 +19,8 @@ public final class MapeadorPreorden {
 		if(preorden != null) {
 			return new PreordenDTO(MapeadorFigura.mapearADTO(preorden.getFigura()), 
 					MapeadorCliente.mapearADTO(preorden.getCliente()), 
-					preorden.getPrecioPreorden(), preorden.getFechaPreorden(), preorden.getId());
+					preorden.getPrecioPreorden(), preorden.getFechaPreorden(), preorden.getId(), 
+					preorden.getFigura().getFechaLlegada().isAfter(LocalDate.now()));
 		}else {
 			return null; 
 		}

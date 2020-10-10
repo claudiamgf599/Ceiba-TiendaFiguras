@@ -4,16 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.ceiba.tiendafiguras.aplicacion.mapeador.MapeadorCliente;
+import com.ceiba.tiendafiguras.dominio.excepcion.ValidadorArgumentosExcepcion;
 import com.ceiba.tiendafiguras.dominio.modelo.dto.ClienteDTO;
 import com.ceiba.tiendafiguras.dominio.modelo.entidad.Cliente;
 import com.ceiba.tiendafiguras.testdatabuilder.ClienteDTOTestDataBuilder;
 import com.ceiba.tiendafiguras.testdatabuilder.ClienteTestDataBuilder;
 
 public class MapeadorClienteTest {
-
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Test
 	public void entidadEsNullTest() {
 		//arrange
@@ -106,4 +112,13 @@ public class MapeadorClienteTest {
 		assertEquals(cliente.getApellidos(), clienteDTO.getApellidos());
 	}
 	
+	@Test
+	public void clienteArgumentosInvalidosTest() {
+		//arrange
+		thrown.expect(ValidadorArgumentosExcepcion.class);
+				
+		//act / assert
+		new Cliente(null, null, null);
+
+	}
 }
