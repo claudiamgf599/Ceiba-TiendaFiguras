@@ -29,5 +29,9 @@ public class Cliente {
 		this.identificacion = identificacion;
 	}
 	
+	@Override
+	public String toString() {
+		return "identificacion: " + identificacion + " nombres: " + nombres + " apellidos: " + apellidos;
+	}
 	
 }

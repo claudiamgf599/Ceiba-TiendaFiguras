@@ -13,5 +13,10 @@ public class ComandoPreorden {
 	
 	private String idFigura;
 	private String idCliente;
+	
+	@Override
+	public String toString() {
+		return "idFigura: " + idFigura + " nombres: " + idCliente + " apellidos: " + idCliente;
+	}
 
 }

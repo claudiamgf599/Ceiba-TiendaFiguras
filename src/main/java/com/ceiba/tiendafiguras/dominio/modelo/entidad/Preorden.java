@@ -41,4 +41,9 @@ public class Preorden {
 		this.cliente = clientePreorden;
 	}
 	
+	@Override
+	public String toString() {
+		return "figura: " + figura.toString() + " cliente: " + cliente.toString() + " precioPreorden: " + precioPreorden
+				+ " fechaPreorden: " + fechaPreorden;
+	}
 }
